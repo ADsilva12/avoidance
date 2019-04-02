@@ -38,8 +38,6 @@ void LocalPlanner::dynamicReconfigureSetParams(
   cost_params_.smooth_cost_param = config.smooth_cost_param_;
   velocity_around_obstacles_ =
       static_cast<float>(config.velocity_around_obstacles_);
-  velocity_far_from_obstacles_ =
-      static_cast<float>(config.velocity_far_from_obstacles_);
   keep_distance_ = config.keep_distance_;
   reproj_age_ = static_cast<float>(config.reproj_age_);
   velocity_sigmoid_slope_ = static_cast<float>(config.velocity_sigmoid_slope_);
@@ -65,7 +63,7 @@ void LocalPlanner::dynamicReconfigureSetParams(
   use_back_off_ = config.use_back_off_;
   use_VFH_star_ = config.use_VFH_star_;
   adapt_cost_params_ = config.adapt_cost_params_;
-  send_obstacles_fcu_ = config.send_obstacles_fcu_;
+  send_obstacles_fcu_ = model_params_.param_mpc_col_prev_d > 0.f;
 
   star_planner_->dynamicReconfigureSetStarParams(config, level);
 
@@ -477,7 +475,7 @@ avoidanceOutput LocalPlanner::getAvoidanceOutput() const {
 
   out.obstacle_ahead = obstacle_;
   out.velocity_around_obstacles = velocity_around_obstacles_;
-  out.velocity_far_from_obstacles = velocity_far_from_obstacles_;
+  out.velocity_far_from_obstacles = model_params_.param_mpc_xy_cruise;
   out.last_path_time = last_path_time_;
 
   out.back_off_point = back_off_point_;

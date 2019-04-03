@@ -63,7 +63,7 @@ void LocalPlanner::dynamicReconfigureSetParams(
   use_back_off_ = config.use_back_off_;
   use_VFH_star_ = config.use_VFH_star_;
   adapt_cost_params_ = config.adapt_cost_params_;
-  send_obstacles_fcu_ = model_params_.param_mpc_col_prev_d > 0.f;
+  send_obstacles_fcu_ = px4_.param_mpc_col_prev_d > 0.f;
 
   star_planner_->dynamicReconfigureSetStarParams(config, level);
 
@@ -475,7 +475,7 @@ avoidanceOutput LocalPlanner::getAvoidanceOutput() const {
 
   out.obstacle_ahead = obstacle_;
   out.velocity_around_obstacles = velocity_around_obstacles_;
-  out.velocity_far_from_obstacles = model_params_.param_mpc_xy_cruise;
+  out.velocity_far_from_obstacles = px4_.param_mpc_xy_cruise;
   out.last_path_time = last_path_time_;
 
   out.back_off_point = back_off_point_;

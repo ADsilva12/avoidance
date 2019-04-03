@@ -38,7 +38,8 @@ LocalPlannerNode::LocalPlannerNode(const ros::NodeHandle& nh,
   // disable memory if using more than one camera
   if (cameras_.size() > 1) {
     config_mutex_.lock();
-    rqt_param_config_.reproj_age_ = std::min(10, rqt_param_config_.reproj_age_);
+    rqt_param_config_.max_point_age_ =
+        std::min(10, rqt_param_config_.max_point_age_);
     config_mutex_.unlock();
     server_->updateConfig(rqt_param_config_);
     dynamicReconfigureCallback(rqt_param_config_, 1);
@@ -192,7 +193,7 @@ bool LocalPlannerNode::canUpdatePlannerInfo() {
 }
 void LocalPlannerNode::updatePlannerInfo() {
   // update the point cloud
-  local_planner_->complete_cloud_.clear();
+  local_planner_->original_cloud_vector_.clear();
   for (size_t i = 0; i < cameras_.size(); ++i) {
     pcl::PointCloud<pcl::PointXYZ> pcl_cloud;
     try {
@@ -208,7 +209,7 @@ void LocalPlannerNode::updatePlannerInfo() {
       pcl_ros::transformPointCloud("/local_origin", pcl_cloud, pcl_cloud,
                                    *tf_listener_);
 
-      local_planner_->complete_cloud_.push_back(std::move(pcl_cloud));
+      local_planner_->original_cloud_vector_.push_back(std::move(pcl_cloud));
     } catch (tf::TransformException& ex) {
       ROS_ERROR("Received an exception trying to transform a pointcloud: %s",
                 ex.what());

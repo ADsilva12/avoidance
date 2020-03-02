@@ -1,3 +1,4 @@
+<?xml version="1.0" ?>
 <!--
 Copyright (c) 2018 Intel Corporation
 
@@ -14,11 +15,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+<!-- TODO: is "requried" really required? -->
+
 <launch>
   <arg name="tf_prefix"           default=""/>
   <arg name="namespace"           default="camera"/>
   <arg name="manager"             default="realsense2_camera_manager"/>
-  <arg name="required"            default="false"/>
+  <!-- arg name="required"            default="false"/ -->
+
 
   <!-- Camera device specific arguments -->
   <arg name="serial_no"           default=""/>
@@ -51,7 +55,8 @@ limitations under the License.
        <arg name="manager"                  value="$(arg manager)"/>
        <arg name="serial_no"                value="$(arg serial_no)"/>
        <arg name="json_file_path"           value="$(arg json_file_path)"/>
-       <arg name="required"                 value="$(arg required)"/>
+       <!-- arg name="required"                 value="$(arg required)"/ -->
+
 
        <arg name="enable_pointcloud"        value="$(arg enable_pointcloud)"/>
        <arg name="enable_sync"              value="$(arg enable_sync)"/>
@@ -74,8 +79,10 @@ limitations under the License.
        <arg name="initial_reset"            value="$(arg initial_reset)"/>
      </include>
 
+      <!-- node pkg="nodelet" type="nodelet" name="points_xyz_sw_registered"
+            args="load depth_image_proc/point_cloud_xyz $(arg manager) true" required="$(arg required)" -->
       <node pkg="nodelet" type="nodelet" name="points_xyz_sw_registered"
-            args="load depth_image_proc/point_cloud_xyz $(arg manager) true" required="$(arg required)">
+            args="load depth_image_proc/point_cloud_xyz $(arg manager) true">
         <remap from="camera_info"             to="depth/camera_info" />
         <remap from="image_rect" to="depth/image_rect_raw" />
         <remap from="points"     to="depth/points" />

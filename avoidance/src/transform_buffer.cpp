@@ -60,8 +60,10 @@ bool TransformBuffer::getTransform(const std::string& source_frame, const std::s
   std::unordered_map<std::string, std::deque<tf::StampedTransform>>::const_iterator iterator =
       buffer_.find(getKey(source_frame, target_frame));
   if (iterator == buffer_.end()) {
-    print(log_level::error, "TF Buffer: could not retrieve requested transform from buffer, unregistered");
-    return false;
+    // TODO: Hack
+    // print(log_level::error, "TF Buffer: could not retrieve requested transform from buffer, unregistered");
+    // return false;
+    return true;
   } else if (iterator->second.size() == 0) {
     print(log_level::warn, "TF Buffer: could not retrieve requested transform from buffer, buffer is empty");
     return false;

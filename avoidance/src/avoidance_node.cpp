@@ -119,20 +119,6 @@ void AvoidanceNode::px4ParamsCallback(const mavros_msgs::Param& msg) {
   parse_param_f("WPNAV_SPEED_UP", px4_.param_mpc_z_vel_max_up, 200.0) ||
   parse_param_f("AVOID_DIST_MAX", px4_.param_cp_dist, 1.0) ||
   parse_param_f("SR0_PARAMS", px4_.param_nav_acc_rad, 1.0);
-
-  // parse_param_f("MPC_ACC_DOWN_MAX", px4_.param_mpc_acc_down_max) ||
-  // parse_param_f("MPC_ACC_HOR", px4_.param_mpc_acc_hor) ||
-  // parse_param_f("MPC_ACC_UP_MAX", px4_.param_acc_up_max) ||
-  // parse_param_i("MPC_AUTO_MODE", px4_.param_mpc_auto_mode) ||
-  // parse_param_f("MPC_JERK_MIN", px4_.param_mpc_jerk_min) ||
-  // parse_param_f("MPC_JERK_MAX", px4_.param_mpc_jerk_max) ||
-  // parse_param_f("MPC_LAND_SPEED", px4_.param_mpc_land_speed) ||
-  // parse_param_f("MPC_TKO_SPEED", px4_.param_mpc_tko_speed) ||
-  // parse_param_f("MPC_XY_CRUISE", px4_.param_mpc_xy_cruise) ||
-  // parse_param_f("MPC_Z_VEL_MAX_DN", px4_.param_mpc_vel_max_dn) ||
-  // parse_param_f("MPC_Z_VEL_MAX_UP", px4_.param_mpc_z_vel_max_up) ||
-  // parse_param_f("CP_DIST", px4_.param_cp_dist) ||
-  // parse_param_f("NAV_ACC_RAD", px4_.param_nav_acc_rad);
   // clang-format on
 }
 

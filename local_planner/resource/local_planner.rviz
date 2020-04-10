@@ -90,9 +90,9 @@ Visualization Manager:
     - Class: rviz/Axes
       Enabled: false
       Length: 1
-      Name: fcu
+      Name: base_link_frd
       Radius: 0.100000001
-      Reference Frame: fcu
+      Reference Frame: base_link_frd
       Value: false
     - Class: rviz/Axes
       Enabled: true
@@ -133,7 +133,7 @@ Visualization Manager:
       Value: true
     - Class: rviz/Image
       Enabled: true
-      Image Topic: /camera/rgb/image_raw
+      Image Topic: /cost_image
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -270,7 +270,7 @@ Visualization Manager:
       Name: Current View
       Near Clip Distance: 0.00999999978
       Pitch: 0.72479701
-      Target Frame: fcu
+      Target Frame: base_link_frd
       Value: ThirdPersonFollower (rviz)
       Yaw: 3.09110641
     Saved:

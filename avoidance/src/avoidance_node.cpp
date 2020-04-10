@@ -106,19 +106,19 @@ void AvoidanceNode::px4ParamsCallback(const mavros_msgs::Param& msg) {
 
   // clang-format off
   std::lock_guard<std::mutex> lck(*(px4_.param_cb_mutex));
-  parse_param_f("WPNAV_ACCEL_Z", px4_.param_mpc_acc_down_max, 10.0) ||
-  parse_param_f("WPNAV_ACCEL", px4_.param_mpc_acc_hor, 10.0) ||
-  parse_param_f("WPNAV_ACCEL_Z", px4_.param_acc_up_max, 10.0) ||
-  parse_param_i("SIM_ACCEL_FAIL", px4_.param_mpc_auto_mode, 1) ||
-  parse_param_f("SIM_ACCEL_FAIL", px4_.param_mpc_jerk_min, 1.0) ||
+  parse_param_f("WPNAV_ACCEL_Z", px4_.param_mpc_acc_down_max, 0.1) ||
+  parse_param_f("WPNAV_ACCEL", px4_.param_mpc_acc_hor, 0.1) ||
+  parse_param_f("WPNAV_ACCEL_Z", px4_.param_acc_up_max, 0.1) ||
+  parse_param_i("AVD_ENABLE", px4_.param_mpc_auto_mode, 1) ||
+  parse_param_f("AVD_ENABLE", px4_.param_mpc_jerk_min, 1.0) ||
   parse_param_f("INS_ACCEL_FILTER", px4_.param_mpc_jerk_max, 1.0) ||
-  parse_param_f("LAND_SPEED", px4_.param_mpc_land_speed, 5.0) ||
-  parse_param_f("WPNAV_SPEED_UP:", px4_.param_mpc_tko_speed, 100.0) ||
-  parse_param_f("WPNAV_SPEED", px4_.param_mpc_xy_cruise, 100.0) ||
-  parse_param_f("WPNAV_SPEED_DN", px4_.param_mpc_vel_max_dn, 100.0) ||
-  parse_param_f("WPNAV_SPEED_UP", px4_.param_mpc_z_vel_max_up, 200.0) ||
-  parse_param_f("AVOID_DIST_MAX", px4_.param_cp_dist, 1.0) ||
-  parse_param_f("SR0_PARAMS", px4_.param_nav_acc_rad, 1.0);
+  parse_param_f("LAND_SPEED", px4_.param_mpc_land_speed, 1.0) ||
+  parse_param_f("WPNAV_SPEED_UP:", px4_.param_mpc_tko_speed, 0.1) ||
+  parse_param_f("WPNAV_SPEED", px4_.param_mpc_xy_cruise, 0.01) ||
+  parse_param_f("WPNAV_SPEED_DN", px4_.param_mpc_vel_max_dn, 0.01) ||
+  parse_param_f("WPNAV_SPEED_UP", px4_.param_mpc_z_vel_max_up, 0.01) ||
+  parse_param_f("AVOID_DIST_MAX", px4_.param_cp_dist, 0.1) ||
+  parse_param_f("CIRCLE_RADIUS", px4_.param_nav_acc_rad, 0.01);
   // clang-format on
 }
 
@@ -139,8 +139,8 @@ void AvoidanceNode::checkPx4Parameters() {
       request_param("WPNAV_SPEED", px4_.param_mpc_xy_cruise);
       request_param("AVOID_DIST_MAX", px4_.param_cp_dist);
       request_param("LAND_SPEED", px4_.param_mpc_land_speed);
-      request_param("SIM_ACCEL_FAIL", px4_.param_mpc_jerk_min);
-      request_param("SR0_PARAMS", px4_.param_nav_acc_rad);
+      request_param("AVD_ENABLE", px4_.param_mpc_jerk_min);
+      request_param("CIRCLE_RADIUS", px4_.param_nav_acc_rad);
 
       // request_param("MPC_ACC_HOR", px4_.param_mpc_acc_hor);
       // request_param("MPC_XY_CRUISE", px4_.param_mpc_xy_cruise);

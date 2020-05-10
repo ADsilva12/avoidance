@@ -88,8 +88,9 @@ void AvoidanceNode::px4ParamsCallback(const mavros_msgs::Param& msg) {
   // add new else if case with correct value type
   auto parse_param_f = [&msg](const std::string& name, float& val, float scale_factor) -> bool {
     if (msg.param_id == name) {
-      ROS_INFO("parameter %s is set from  %f to %f \n", name.c_str(), val, msg.value.real*scale_factor);
-      val = msg.value.real*scale_factor;
+      // ROS_INFO("parameter %s is set from  %f to %f \n", name.c_str(), val, msg.value.real*scale_factor);
+      val = scale_factor;
+      ROS_INFO("parameter %s is set from  %f to %f \n", name.c_str(), val, scale_factor);
       return true;
     }
     return false;
@@ -97,8 +98,8 @@ void AvoidanceNode::px4ParamsCallback(const mavros_msgs::Param& msg) {
 
   auto parse_param_i = [&msg](const std::string& name, int& val, int scale_factor) -> bool {
     if (msg.param_id == name) {
-      ROS_INFO("parameter %s is set from %i to %li \n", name.c_str(), val, msg.value.integer*scale_factor);
-      val = msg.value.integer*scale_factor;
+      ROS_INFO("parameter %s is set from %i to %li \n", name.c_str(), val, scale_factor);
+      val = scale_factor;
       return true;
     }
     return false;
@@ -106,19 +107,19 @@ void AvoidanceNode::px4ParamsCallback(const mavros_msgs::Param& msg) {
 
   // clang-format off
   std::lock_guard<std::mutex> lck(*(px4_.param_cb_mutex));
-  parse_param_f("WPNAV_ACCEL_Z", px4_.param_mpc_acc_down_max, 0.1) ||
-  parse_param_f("WPNAV_ACCEL", px4_.param_mpc_acc_hor, 0.1) ||
-  parse_param_f("WPNAV_ACCEL_Z", px4_.param_acc_up_max, 0.1) ||
-  parse_param_i("AVD_ENABLE", px4_.param_mpc_auto_mode, 1) ||
-  parse_param_f("AVD_ENABLE", px4_.param_mpc_jerk_min, 1.0) ||
-  parse_param_f("INS_ACCEL_FILTER", px4_.param_mpc_jerk_max, 1.0) ||
-  parse_param_f("LAND_SPEED", px4_.param_mpc_land_speed, 1.0) ||
-  parse_param_f("WPNAV_SPEED_UP:", px4_.param_mpc_tko_speed, 0.1) ||
-  parse_param_f("WPNAV_SPEED", px4_.param_mpc_xy_cruise, 0.01) ||
-  parse_param_f("WPNAV_SPEED_DN", px4_.param_mpc_vel_max_dn, 0.01) ||
-  parse_param_f("WPNAV_SPEED_UP", px4_.param_mpc_z_vel_max_up, 0.01) ||
-  parse_param_f("AVOID_DIST_MAX", px4_.param_cp_dist, 0.1) ||
-  parse_param_f("CIRCLE_RADIUS", px4_.param_nav_acc_rad, 0.01);
+  parse_param_f("WPNAV_ACCEL_Z", px4_.param_mpc_acc_down_max, 3.0) ||
+  parse_param_f("WPNAV_ACCEL", px4_.param_mpc_acc_hor, 3.0) ||
+  parse_param_f("WPNAV_ACCEL_Z", px4_.param_acc_up_max, 5.0) ||
+  parse_param_i("AVD_ENABLE", px4_.param_mpc_auto_mode, 0) ||
+  parse_param_f("AVD_ENABLE", px4_.param_mpc_jerk_min, 8.0) ||
+  parse_param_f("INS_ACCEL_FILTER", px4_.param_mpc_jerk_max, 20.0) ||
+  parse_param_f("LAND_SPEED", px4_.param_mpc_land_speed, 0.7) ||
+  parse_param_f("WPNAV_SPEED_UP:", px4_.param_mpc_tko_speed, 1.5) ||
+  parse_param_f("WPNAV_SPEED", px4_.param_mpc_xy_cruise, 5.0) ||
+  parse_param_f("WPNAV_SPEED_DN", px4_.param_mpc_vel_max_dn, 1.0) ||
+  parse_param_f("WPNAV_SPEED_UP", px4_.param_mpc_z_vel_max_up, 3.0) ||
+  parse_param_f("AVOID_DIST_MAX", px4_.param_cp_dist, -1.0) ||
+  parse_param_f("CIRCLE_RADIUS", px4_.param_nav_acc_rad, 2.0);
   // clang-format on
 }
 

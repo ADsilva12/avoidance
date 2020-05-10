@@ -1,0 +1,25 @@
+
+<launch>
+
+  <!-- Launch avoidance -->
+  <!-- arg name="pointcloud_topics" default="[/camera_main/depth/points]"/ -->
+  <!--<arg name="pointcloud_topics" default="[/camera/depth/color/points]"/-->
+  <arg name="pointcloud_topics" default="[/camera/depth/points]"/>
+  <node name="local_planner_node" pkg="local_planner" type="local_planner_node" output="screen" required="true" >
+    <param name="goal_x_param" value="2" />
+    <param name="goal_y_param" value="2"/>
+    <param name="goal_z_param" value="10" />
+    <rosparam param="pointcloud_topics" subst_value="True">$(arg pointcloud_topics)</rosparam>
+  </node>
+
+  <!-- rosrun topic_tools transform /stereo/disparity /stereo/disparity_image sensor_msgs/Image 'm.image' -->
+
+  <!-- rosrun topic_tools transform /stereoV/disparity /stereoV/disparity_image sensor_msgs/Image 'm.image' -->
+
+  <!--  <node name="transform" pkg="topic_tools" type="transform"
+      args="/stereo/disparity /stereo/disparity_image sensor_msgs/Image 'm.image'" />
+
+       <node name="transformV" pkg="topic_tools" type="transform"
+      args="/stereoV/disparity /stereoV/disparity_image sensor_msgs/Image 'm.image'" /> -->
+
+</launch>

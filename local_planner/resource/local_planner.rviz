@@ -88,11 +88,18 @@ Visualization Manager:
       Queue Size: 100
       Value: true
     - Class: rviz/Axes
-      Enabled: false
+      Enabled: true
       Length: 1
-      Name: base_link_frd
+      Name: base_link
       Radius: 0.100000001
-      Reference Frame: base_link_frd
+      Reference Frame: base_link
+      Value: false
+    - Class: rviz/Axes
+      Enabled: true
+      Length: 1
+      Name: camera_link
+      Radius: 0.100000001
+      Reference Frame: camera_link
       Value: false
     - Class: rviz/Axes
       Enabled: true
@@ -144,7 +151,7 @@ Visualization Manager:
       Unreliable: false
       Value: true
     - Class: rviz/Marker
-      Enabled: false
+      Enabled: true
       Marker Topic: /complete_tree
       Name: Tree
       Namespaces:
@@ -152,7 +159,7 @@ Visualization Manager:
       Queue Size: 100
       Value: false
     - Class: rviz/Marker
-      Enabled: false
+      Enabled: true
       Marker Topic: /tree_path
       Name: TreePath
       Namespaces:
@@ -160,7 +167,7 @@ Visualization Manager:
       Queue Size: 100
       Value: false
     - Class: rviz/Marker
-      Enabled: false
+      Enabled: true
       Marker Topic: /take_off_pose
       Name: TakeOff
       Namespaces:
@@ -168,7 +175,7 @@ Visualization Manager:
       Queue Size: 100
       Value: false
     - Class: rviz/Marker
-      Enabled: false
+      Enabled: true
       Marker Topic: /original_waypoint
       Name: WpOriginal
       Namespaces:
@@ -176,7 +183,7 @@ Visualization Manager:
       Queue Size: 100
       Value: false
     - Class: rviz/Marker
-      Enabled: false
+      Enabled: true
       Marker Topic: /adapted_waypoint
       Name: WpAdapted
       Namespaces:
@@ -184,7 +191,7 @@ Visualization Manager:
       Queue Size: 100
       Value: false
     - Class: rviz/Marker
-      Enabled: false
+      Enabled: true
       Marker Topic: /smoothed_waypoint
       Name: WpSmoothed
       Namespaces:
@@ -192,7 +199,7 @@ Visualization Manager:
       Queue Size: 100
       Value: false
     - Class: rviz/Marker
-      Enabled: false
+      Enabled: true
       Marker Topic: /current_setpoint
       Name: currenSetpoint
       Namespaces:
@@ -200,7 +207,7 @@ Visualization Manager:
       Queue Size: 100
       Value: false
     - Class: rviz/Marker
-      Enabled: false
+      Enabled: true
       Marker Topic: /closest_point
       Name: Offtrack Closest Point
       Namespaces:
@@ -208,7 +215,7 @@ Visualization Manager:
       Queue Size: 100
       Value: false
     - Class: rviz/Marker
-      Enabled: false
+      Enabled: true
       Marker Topic: /deg60_point
       Name: Offtrack degrees 60 Point
       Namespaces:
@@ -216,7 +223,7 @@ Visualization Manager:
       Queue Size: 100
       Value: false
     - Class: rviz/Marker
-      Enabled: false
+      Enabled: true
       Marker Topic: /fov
       Name: FOV
       Namespaces:

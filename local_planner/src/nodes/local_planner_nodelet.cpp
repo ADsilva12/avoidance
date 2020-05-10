@@ -86,10 +86,10 @@ void LocalPlannerNodelet::InitializeNodelet() {
   fcu_input_sub_ = nh_.subscribe("/mavros/trajectory/desired", 1, &LocalPlannerNodelet::fcuInputGoalCallback, this);
   goal_topic_sub_ = nh_.subscribe("/input/goal_position", 1, &LocalPlannerNodelet::updateGoalCallback, this);
   distance_sensor_sub_ = nh_.subscribe("/mavros/altitude", 1, &LocalPlannerNodelet::distanceSensorCallback, this);
-  mavros_vel_setpoint_pub_ = nh_.advertise<geometry_msgs::Twist>("/mavros/setpoint_velocity/cmd_vel_unstamped", 10);
-  mavros_pos_setpoint_pub_ = nh_.advertise<geometry_msgs::PoseStamped>("/mavros/setpoint_position/local", 10);
-  mavros_obstacle_free_path_pub_ = nh_.advertise<mavros_msgs::Trajectory>("/mavros/trajectory/generated", 10);
-  mavros_obstacle_distance_pub_ = nh_.advertise<sensor_msgs::LaserScan>("/mavros/obstacle/send", 10);
+  mavros_vel_setpoint_pub_ = nh_.advertise<geometry_msgs::Twist>("/local_planner/setpoint_velocity/cmd_vel_unstamped", 10);
+  mavros_pos_setpoint_pub_ = nh_.advertise<geometry_msgs::PoseStamped>("/local_planner/setpoint_position/local", 10);
+  mavros_obstacle_free_path_pub_ = nh_.advertise<mavros_msgs::Trajectory>("/local_planner/trajectory/generated", 10);
+  mavros_obstacle_distance_pub_ = nh_.advertise<sensor_msgs::LaserScan>("/local_planner/obstacle/send", 10);
 
   // initialize visualization topics
   visualizer_.initializePublishers(nh_);

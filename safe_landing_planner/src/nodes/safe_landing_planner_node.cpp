@@ -215,7 +215,7 @@ void SafeLandingPlannerNode::pointCloudTransformThread() {
       if (should_exit_) break;
 
       std::unique_ptr<std::lock_guard<std::mutex>> cloud_msg_lock(new std::lock_guard<std::mutex>(*(cloud_msg_mutex_)));
-      if (tf_listener_.canTransform("/local_origin", newest_cloud_msg_.header.frame_id,
+      if (tf_listener_.canTransform("/map", newest_cloud_msg_.header.frame_id,
                                     newest_cloud_msg_.header.stamp)) {
         try {
           pcl::PointCloud<pcl::PointXYZ> pcl_cloud;
@@ -227,8 +227,8 @@ void SafeLandingPlannerNode::pointCloudTransformThread() {
           dummy_index.reserve(pcl_cloud.points.size());
           pcl::removeNaNFromPointCloud(pcl_cloud, pcl_cloud, dummy_index);
 
-          // transform cloud to /local_origin frame
-          pcl_ros::transformPointCloud("/local_origin", pcl_cloud, pcl_cloud, tf_listener_);
+          // transform cloud to /map frame
+          pcl_ros::transformPointCloud("/map", pcl_cloud, pcl_cloud, tf_listener_);
 
           std::lock_guard<std::mutex> transformed_cloud_guard(*(transformed_cloud_mutex_));
           cloud_transformed_ = true;
